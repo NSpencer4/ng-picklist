@@ -16,7 +16,7 @@ import { PicklistShowcaseComponent } from './components/picklist-showcase.compon
     PicklistFilterPipe
   ],
   exports: [
-    PicklistShowcaseComponent
+    PicklistShowcaseComponent,
   ]
 })
 export class PicklistShowcaseModule {
