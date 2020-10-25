@@ -1,8 +1,123 @@
 /* You can add global styles to this file, and also import other style files */
+// Primary Colors
 $black: #000000;
+$red: #e41f35;
+$white: #ffffff;
+
+// Secondary Colors
 $light-grey: #cccccc;
+$red-shadow: rgba(228, 31, 53, 0.40);
+$light-grey-shadow: #00000029;
+$dark-red: #CB061C;
+$dark-red-shadow: #E41F3529;
+
+//Breakpoints
+$bp-mobile: 640px;
+$bp-tablet: 768px;
+$bp-desktop: 1024px;
+
+// Typography
+$base-font-family: 'myriad-pro';
+
+// Asset Paths
+$icon-path: '/icons';
 
 @function calculateRem($size) {
   $remSize: $size / 16px;
   @return #{$remSize}rem;
+}
+
+//##Start Mixins##
+// Style to - the new respond to.
+// Takes the MAX pixel width and will apply styling.
+@mixin style-until($viewPixels) {
+  @media (max-width: #{$viewPixels - 1px}) {
+    @content;
+  }
+}
+
+@mixin round-svg-icon($width , $height , $name){
+  display: inline-block;
+  vertical-align: middle;
+  background-image: url('#{$icon-path}/#{$name}.svg');
+  width: #{$width}px;
+  height: #{$height}px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  border-radius: 50%;
+}
+//##Stop Mixins##
+
+// Standard Element Styles
+%standard-cta-text {
+  color: $red;
+  letter-spacing: 0;
+  text-shadow: 0 3px 6px $dark-red-shadow;
+  cursor: pointer;
+  border: 0;
+  background: none;
+
+  &:active, &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:disabled, &[disabled] {
+    color: $light-grey;
+    text-shadow: 0 3px 6px $light-grey-shadow;
+    opacity: 1;
+    letter-spacing: 0;
+    cursor: not-allowed;
+    border: 0;
+    background: none;
+  }
+}
+
+%standard-btn {
+  color: $white;
+  background-color: $red;
+  border: 1px solid $red;
+  border-radius: 23px;
+  font-family: $base-font-family;
+  font-size: 16px;
+  height: 30px;
+  min-width: 90px;
+  box-shadow: 0 5px 10px $red-shadow;
+  text-align: center;
+
+  &:hover {
+    @extend %standard-btn-hover;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled, &[disabled] {
+    @extend %disabled-btn;
+  }
+}
+
+%standard-btn-hover {
+  background-color: $dark-red;
+  border: 1px solid $dark-red;
+  box-shadow: 0 5px 10px $dark-red-shadow;
+}
+
+%disabled-btn {
+  color: $white;
+  background-color: $light-grey;
+  border: none;
+  box-shadow: none;
+  cursor: default;
+  pointer-events: none;
+
+  &:hover {
+    @extend %disabled-btn-hover;
+  }
+}
+
+
+%disabled-btn-hover {
+  background-color: $light-grey-shadow;
 }
