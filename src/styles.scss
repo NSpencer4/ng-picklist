@@ -1,3 +1,5 @@
+@import '~bootstrap';
+
 /* You can add global styles to this file, and also import other style files */
 // Primary Colors
 $black: #000000;
@@ -120,4 +122,18 @@ $icon-path: '/icons';
 
 %disabled-btn-hover {
   background-color: $light-grey-shadow;
+}
+
+%standard-input-box {
+  font-weight: 400;
+  font-size: 0.875rem;
+  background-color: $white;
+  border: 1px solid $black;
+  box-shadow: none;
+  border-radius: 2px;
+  display: block;
+  height: 34px;
+  line-height: 1.5;
+  color: $black;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }

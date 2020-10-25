@@ -1,0 +1,84 @@
+<section id="picklist-container">
+  <section [attr.data-id]="'container-row'" id="container-row" class="row">
+
+    <section class="col-md-5 selectables-col">
+      <section [attr.data-id]="'selectables-container-heading-row'" id="selectables-container-heading-row" class="row">
+        <section id="selectables-container-title-col" class="col-md-7 col-sm-8 col-7">
+          <span id="selectables-header">{{selectablesContainerHeaderText}}</span>
+        </section>
+        <div id="selectables-container-action-col"
+             class="col-md-5 col-sm-4 col-5">
+          <button id="select-all-text"
+                  class="cta"
+                  (click)="selectAll()"
+                  [disabled]="selectableItems.length === 0">{{selectAllOptionText}}</button>
+        </div>
+      </section>
+
+      <section [attr.data-id]="'selectables-container-row'" id="selectables-container-row" class="row">
+        <section [attr.data-id]="'selectables-container'" id="selectables-container" class="data-container">
+          <div *ngIf="(selectableItems | picklistFilterPipe:filterTerm).length <= 0
+          && selectableItems.length > 0
+          && noResultsForFilterTermMessage"
+               class="row">
+            <div class="col-md-12 col-sm-12 col-12 placeholder-col">
+              <span id="no-results-text">
+                {{noResultsForFilterTermMessage}}
+              </span>
+            </div>
+          </div>
+          <div *ngFor="let selectableItem of selectableItems | picklistFilterPipe:filterTerm" class="row table-row">
+            <div class="col-md-10 col-sm-8 col-9 row-text">
+              <span class="selectable-text">
+                <strong>{{selectableItem.id}}</strong>
+                {{selectableItem.name}}
+              </span>
+            </div>
+            <div class="col-md-2 col-sm-4 col-3 select-container">
+              <button class="cta select-action"
+                      (click)="select(selectableItem.id)">{{selectOptionText}}</button>
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <section class="col-md-5 col-md-offset-1 selected-container-col">
+      <section [attr.data-id]="'selected-container-heading-row'" id="selected-container-heading-row" class="row">
+        <section id="selected-container-title-col" class="col-md-7 col-sm-7 col-6">
+          <span id="selected-header">{{selectedContainerHeaderText}}</span>
+        </section>
+        <section id="selected-container-action-col" class="col-md-5 col-sm-5 col-6">
+          <button id="remove-all-text"
+                  class="cta"
+                  [disabled]="selectedItems.length === 0"
+                  (click)="removeAll()">{{removeAllOptionText}}</button>
+        </section>
+      </section>
+
+      <section [attr.data-id]="'selected-container-row'" id="selected-container-row" class="row">
+        <section [attr.data-id]="'selected-container'" id="selected-container" class="data-container">
+          <div *ngIf="selectedItems?.length <= 0" class="row">
+            <div class="col-md-12 col-sm-12 col-12 placeholder-col">
+              <span id="placeholder-text">
+                {{selectedContainerPlaceholderText}}
+              </span>
+            </div>
+          </div>
+          <div *ngFor="let selectedItem of selectedItems" class="row table-row">
+            <div class="col-md-10 col-sm-8 col-8 row-text">
+              <span class="selected-text">
+                <strong>{{selectedItem.id}}</strong>
+                {{selectedItem.name}}
+              </span>
+            </div>
+            <div class="col-md-2 col-sm-4 col-4 action-container">
+              <span class="cta remove-action"
+                    (click)="remove(selectedItem.id)">{{removeOptionText}}</span>
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
+  </section>
+</section>

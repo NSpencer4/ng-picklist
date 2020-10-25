@@ -1,4 +1,21 @@
 @import '../../../../styles';
 
 #picklist-showcase-container {
+  width: 100%;
+
+  #filter-bar-row {
+    margin-bottom: 2%;
+  }
+
+  #clear-filter {
+    @extend %standard-cta-text;
+    line-height: 1.5;
+    padding-left: 1%;
+    font-size: calculateRem(16px);
+  }
+
+  #filter-term-input {
+    @extend %standard-input-box;
+    display: inline-block;
+  }
 }

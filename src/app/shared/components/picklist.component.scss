@@ -1,0 +1,104 @@
+@import '../../../styles';
+
+#picklist-container {
+  span {
+    color: $black;
+  }
+
+  .row {
+    margin: 0 0 1% 0;
+  }
+
+  #selected-header, #selectables-header {
+    color: $black;
+    font-size: calculateRem(16px);
+    font-weight: 600;
+    vertical-align: middle;
+    margin-left: 2%;
+  }
+
+  .data-container {
+    border: 1px solid $black;
+    opacity: 1;
+    width: 100%;
+    height: 25vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  #select-all-action {
+    color: $red;
+    font-size: calculateRem(16px);
+    margin-right: 2%;
+  }
+
+  #clear-all-action {
+    color: $black;
+    font-size: calculateRem(16px);
+    margin-right: 2%;
+  }
+
+  #selectables-container-title-col, #selected-container-title-col {
+    float: left;
+    text-align: left;
+  }
+
+  .cta {
+    @extend %standard-cta-text;
+  }
+
+  .table-row {
+    padding: 3.5% 0 3.75% 2%;
+    margin: 0;
+    border-bottom: $light-grey 1px solid;
+  }
+
+  .row-text span, .select-container span, .action-container span {
+    font-size: calculateRem(14px);
+    vertical-align: top;
+  }
+
+  .select-action {
+    @extend %standard-cta-text;
+    font-size: calculateRem(14px);
+  }
+
+  .select-container, .action-container, #selected-container-action-col, #selectables-container-action-col {
+    text-align: right;
+    padding-right: 2%;
+  }
+
+  .placeholder-col {
+    text-align: center;
+    padding: 20% 0 0 0;
+    @include style-until($bp-desktop) {
+      padding: 15% 0 0 0;
+    }
+    @include style-until($bp-tablet) {
+      padding: 20% 0 0 0;
+    }
+    @include style-until($bp-mobile) {
+      padding: 30% 0 0 0;
+    }
+  }
+
+  .selectables-col, .selected-container-col {
+    margin-top: 2%;
+    padding-left: 0;
+  }
+
+  .remove-action {
+    @extend %standard-cta-text;
+    font-size: calculateRem(14px);
+  }
+
+  #remove-all-text {
+    @extend %standard-cta-text;
+    font-size: calculateRem(16px);
+  }
+
+  #select-all-text {
+    @extend %standard-cta-text;
+    font-size: calculateRem(16px);
+  }
+}

@@ -1,3 +1,33 @@
 <section id="picklist-showcase-container">
-
+  <section [attr.data-id]="'filter-bar-row'" id="filter-bar-row" class="row">
+    <section class="col-md-5 col-sm-10 col-11">
+      <input [attr.data-id]="'filter-term-input'"
+             id="filter-term-input"
+             name="filter-term-input"
+             class="col-md-8 col-sm-9 col-8"
+             type="text"
+             tabindex="1"
+             maxlength="30"
+             [value]="filterTerm"
+             (input)="filterTerm = $event.target.value"
+             placeholder="{{filterPlaceholderText}}">
+      <button [attr.data-id]="'clear-filter'"
+              class="col-md-3 col-sm-3 col-4"
+              id="clear-filter"
+              [disabled]="!filterTerm"
+              (click)="filterTerm = ''">{{clearFilterTermText}}</button>
+    </section>
+  </section>
+  <app-picklist [selectablesContainerHeaderText]="selectablesHeaderText"
+                [selectedContainerHeaderText]="selectedHeaderText"
+                [selectedContainerPlaceholderText]="selectedPlaceholderText"
+                [selectableItems]="selectablePickListData"
+                [filterTerm]="filterTerm"
+                [noResultsForFilterTermMessage]="noResultsForFilterTermMessage + filterTerm"
+                (selectedItemsEmitter)="setSelectedPicklistData($event)">
+  </app-picklist>
+  <h3 id="demo-text-header">{{codeDemoText}}</h3>
+  <code id="demo-code">
+    {{selectedPicklistDataStr}}
+  </code>
 </section>
