@@ -86,22 +86,57 @@ describe('Picklist', () => {
       expect(component.selectableItems).toEqual(mockPickListData);
     });
   });
+  describe('ngOnInit', () => {
+    it('calls the sortItems function when sortList is true', () => {
+      component.sortList = true;
+      spyOn(component, 'sortItems').and.callFake(() => {
+        //
+      });
+      component.ngOnInit();
+      expect(component.sortItems).toHaveBeenCalled();
+    });
+    it('does not call the sortItems function when sortList is false', () => {
+      component.sortList = false;
+      spyOn(component, 'sortItems').and.callFake(() => {
+        //
+      });
+      component.ngOnInit();
+      expect(component.sortItems).not.toHaveBeenCalled();
+    });
+  });
+  describe('sortItems', () => {
+    it('sorts the selected and selectable item lists', () => {
+      component.selectableItems = [mockPickListData[1], mockPickListData[0]];
+      component.selectedItems = [mockPickListData[3], mockPickListData[4]];
+      component.sortItems();
+      expect(component.selectableItems).toEqual([mockPickListData[0], mockPickListData[1]]);
+      expect(component.selectedItems).toEqual([mockPickListData[3], mockPickListData[4]]);
+    });
+  });
   describe('notifyParentSelections', () => {
     it('emits the new selected data to the parent unsorted', () => {
       component.sortList = false;
       component.selectedItems = mockPickListData;
       spyOn(component.selectedItemsEmitter, 'emit');
+      spyOn(component, 'sortItems').and.callFake(() => {
+        //
+      });
       component.notifyParentSelections();
       expect(component.selectedItemsEmitter.emit).toHaveBeenCalledWith(mockPickListData);
+      expect(component.sortItems).not.toHaveBeenCalled();
     });
     it('should notify the parent a sorted list of selected data and ' +
       'should internally sort the selectables', () => {
       component.sortList = true;
       component.selectableItems = [mockPickListData[1], mockPickListData[0]];
-      component.selectedItems = [mockPickListData[4], mockPickListData[3]];
+      component.selectedItems = [mockPickListData[3], mockPickListData[4]];
+      spyOn(component.selectedItemsEmitter, 'emit');
+      spyOn(component, 'sortItems').and.callFake(() => {
+        //
+      });
       component.notifyParentSelections();
-      expect(component.selectableItems).toEqual([mockPickListData[0], mockPickListData[1]]);
-      expect(component.selectedItems).toEqual([mockPickListData[4], mockPickListData[3]]);
+      expect(component.selectedItemsEmitter.emit).toHaveBeenCalledWith([mockPickListData[3], mockPickListData[4]]);
+      expect(component.sortItems).toHaveBeenCalled();
     });
   });
   describe('template', () => {
@@ -211,6 +246,7 @@ describe('Picklist', () => {
       });
       it('should call the select function passing the data id when an onClick event occurs on a select cta ' +
         '& should render the select text and picklist data for each selectable', () => {
+        component.sortList = false;
         component.selectableItems = mockPickListData;
         fixture.detectChanges();
         const selectActionCTAs: DebugElement[] = fixture.debugElement.queryAll(By.css('.select-action'));
@@ -225,6 +261,7 @@ describe('Picklist', () => {
       });
       it('should call the remove function passing the data id when an onClick event occurs on a remove cta ' +
         '& should render the remove text and picklist data for each selected item', () => {
+        component.sortList = false;
         component.selectedItems = mockPickListData;
         fixture.detectChanges();
         const selectActionCTAs: DebugElement[] = fixture.debugElement.queryAll(By.css('.remove-action'));

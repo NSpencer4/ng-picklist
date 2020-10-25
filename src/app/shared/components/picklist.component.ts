@@ -1,7 +1,7 @@
 import {
   Component,
   EventEmitter,
-  Input,
+  Input, OnInit,
   Output,
   ViewEncapsulation
 } from '@angular/core';
@@ -15,7 +15,7 @@ import { PicklistConstants } from '../constants/picklist.constants';
   styleUrls: ['picklist.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class PicklistComponent {
+export class PicklistComponent implements OnInit {
   @Input() selectablesContainerHeaderText: string;
   @Input() selectedContainerHeaderText: string;
   @Input() selectedContainerPlaceholderText: string;
@@ -29,6 +29,12 @@ export class PicklistComponent {
   selectAllOptionText: string = PicklistConstants.SELECT_ALL_OPTION;
   removeOptionText: string = PicklistConstants.REMOVE_OPTION;
   removeAllOptionText: string = PicklistConstants.REMOVE_ALL_OPTION;
+
+  ngOnInit(): void {
+    if (this.sortList) {
+      this.sortItems();
+    }
+  }
 
   select(selectedId: string): void {
     this.selectableItems =
@@ -64,10 +70,14 @@ export class PicklistComponent {
     this.notifyParentSelections();
   }
 
+  sortItems(): void {
+    this.selectableItems = _.sortBy(this.selectableItems, 'id');
+    this.selectedItems = _.sortBy(this.selectedItems, 'id');
+  }
+
   notifyParentSelections(): void {
     if (this.sortList) {
-      this.selectableItems = _.sortBy(this.selectableItems, 'id');
-      this.selectedItems = _.sortBy(this.selectedItems, 'id');
+      this.sortItems();
     }
     this.selectedItemsEmitter.emit(this.selectedItems);
   }
