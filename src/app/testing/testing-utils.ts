@@ -4,7 +4,7 @@ import { DebugElement } from '@angular/core';
 
 export function testText<T>(selector: string, fixture: ComponentFixture<T>, expectedText: string): void {
   const element: HTMLElement = fixture.debugElement.query(By.css(selector)).nativeElement;
-  expect(element).toContain(expectedText);
+  expect(element.innerText).toEqual(expectedText);
 }
 
 export function testClassExistence<T>(selector: string, fixture: ComponentFixture<T>, expectedClass: string): void {
