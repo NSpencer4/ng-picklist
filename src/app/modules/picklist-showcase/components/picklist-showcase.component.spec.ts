@@ -83,7 +83,7 @@ describe('Picklist Showcase', () => {
   });
   describe('ngOnInit', () => {
     it('should call the setSelectablePicklistData on init', () => {
-      spyOn(component,'setSelectablePicklistData');
+      spyOn(component, 'setSelectablePicklistData');
       component.ngOnInit();
       expect(component.setSelectablePicklistData).toHaveBeenCalled();
     });

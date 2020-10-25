@@ -4,7 +4,7 @@ import { mockPickListData } from '../../testing/test-data';
 
 
 describe('Picklist filter Pipe', () => {
-  let pipe: PicklistFilterPipe = new PicklistFilterPipe();
+  const pipe: PicklistFilterPipe = new PicklistFilterPipe();
   it('should take in a picklist arr and a string to filter on returning the array with matching data on the name', () => {
     const filterString: string = '.38';
     const picklistArr: PicklistData[] = mockPickListData;
